@@ -12,13 +12,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Unpack project payload
-        run: unzip -o ski_adventure_android_payload.zip -d .
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.11"
+
+      - name: Unpack project payload
+        run: python -m zipfile -e ski_adventure_android_payload.zip .
 
       - name: Set up Java
         uses: actions/setup-java@v4
