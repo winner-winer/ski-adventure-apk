@@ -51,6 +51,13 @@ jobs:
             buildozer-${{ runner.os }}-
             buildozer-
 
+      - name: Copy accepted Android SDK licenses for Buildozer
+        run: |
+          BSDK="$HOME/.buildozer/android/platform/android-sdk"
+          mkdir -p "$BSDK/licenses"
+          cp -r "$ANDROID_HOME/licenses/." "$BSDK/licenses/" || true
+          ls -la "$BSDK/licenses" || true
+
       - name: Install Buildozer
         run: |
           python -m pip install --upgrade pip
