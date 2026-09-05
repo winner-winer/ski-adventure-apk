@@ -70,6 +70,20 @@ jobs:
           done
           cat "$BSDK/licenses/android-sdk-license" || true
 
+      - name: Install cmdline tools into Buildozer SDK path
+        run: |
+          BSDK="$HOME/.buildozer/android/platform/android-sdk"
+          mkdir -p "$BSDK/cmdline-tools"
+          if [ ! -x "$BSDK/cmdline-tools/latest/bin/sdkmanager" ]; then
+            cd /tmp
+            curl -L -o cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+            unzip -q cmdline-tools.zip -d "$BSDK/cmdline-tools"
+            mv "$BSDK/cmdline-tools/cmdline-tools" "$BSDK/cmdline-tools/latest"
+          fi
+          mkdir -p "$BSDK/tools"
+          ln -sfn ../cmdline-tools/latest/bin "$BSDK/tools/bin"
+          "$BSDK/tools/bin/sdkmanager" --version
+
       - name: Install Buildozer
         run: |
           python -m pip install --upgrade pip
