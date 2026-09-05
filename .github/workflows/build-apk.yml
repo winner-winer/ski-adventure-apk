@@ -49,8 +49,7 @@ jobs:
           curl -fL -o cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
           unzip -q cmdline-tools.zip -d "$BSDK/cmdline-tools"
           mv "$BSDK/cmdline-tools/cmdline-tools" "$BSDK/cmdline-tools/latest"
-          mkdir -p "$BSDK/tools"
-          ln -sfn ../cmdline-tools/latest/bin "$BSDK/tools/bin"
+          ln -sfn cmdline-tools/latest "$BSDK/tools"
           export ANDROID_HOME="$BSDK"
           export ANDROID_SDK_ROOT="$BSDK"
           echo "ANDROID_HOME=$BSDK" >> "$GITHUB_ENV"
