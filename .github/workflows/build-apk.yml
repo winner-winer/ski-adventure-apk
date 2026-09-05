@@ -58,6 +58,18 @@ jobs:
           cp -r "$ANDROID_HOME/licenses/." "$BSDK/licenses/" || true
           ls -la "$BSDK/licenses" || true
 
+      - name: Seed Android SHK license hashes for Buildozer
+        run: |
+          BSDK="$HOME/.buildozer/android/platform/android-sdk"
+          mkdir -p "$BSDK/licenses"
+          for f in android-sdk-license android-sdk-preview-license; do
+            for h in 176a1732211ab645d20e24b25dcc06df2d71014a 24333f8a63b6825ea9c5514f83c2829b004d1fee 1bffa7a055c1ad736a1f2d6efae2706651da8cf0 2230031030640aa692bf90f973a739f52f60d044 4e2493b6a4ccddc488efbf33f56ce1b1d96353c1; do
+              echo "$h" >> "$BSDK/licenses/$f"
+            done
+            sort -u "$BSDK/licenses/$f" -o "$BSDK/licenses/$f" || true
+          done
+          cat "$BSDK/licenses/android-sdk-license" || true
+
       - name: Install Buildozer
         run: |
           python -m pip install --upgrade pip
