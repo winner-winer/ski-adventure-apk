@@ -37,7 +37,7 @@ jobs:
       - name: Install system dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y git zip unzip openjdk-17-jdk autoconf libtool pkg-config zlib1g-dev libncurses-dev cmake libffi-dev libssl-dev build-essential ccache curl
+          sudo apt-get install -y git zip unzip openjdk-17-jdk autoconf automake autoconf-archive libtool libtool-bin gettext m4 pkg-config zlib1g-dev libncurses-dev cmake libffi-dev libssl-dev build-essential ccache curl
 
       - name: Install Android SDK into Buildozer path
         run: |
