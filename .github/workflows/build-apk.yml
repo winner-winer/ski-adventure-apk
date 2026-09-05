@@ -76,8 +76,9 @@ jobs:
           mkdir -p "$BSDK/cmdline-tools"
           if [ ! -x "$BSDK/cmdline-tools/latest/bin/sdkmanager" ]; then
             cd /tmp
-            curl -L -o cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
+            curl -fL -o cmdline-tools.zip https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip
             unzip -q cmdline-tools.zip -d "$BSDK/cmdline-tools"
+            rm -rf "$BSDK/cmdline-tools/latest"
             mv "$BSDK/cmdline-tools/cmdline-tools" "$BSDK/cmdline-tools/latest"
           fi
           mkdir -p "$BSDK/tools"
