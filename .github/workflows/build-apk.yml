@@ -72,7 +72,11 @@ jobs:
 
       - name: Install cmdline tools into Buildozer SDK path
         run: |
+          exec > >(tee setup.log) 2>&1
+          set -x
+          set -e
           BSDK="$HOME/.buildozer/android/platform/android-sdk"
+          rm -rf "$BSDK/tools"
           mkdir -p "$BSDK/cmdline-tools"
           if [ ! -x "$BSDK/cmdline-tools/latest/bin/sdkmanager" ]; then
             cd /tmp
@@ -104,7 +108,7 @@ jobs:
         run: |
           git config user.name github-actions
           git config user.email github-actions@users.noreply.github.com
-          git add buildozer.log || true
+          git add buildozer.log setup.log || true
           git commit -m 'buildozer log [skip ci]' || true
           git push --force origin HEAD:build-logs || true
 
