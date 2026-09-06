@@ -80,6 +80,19 @@ jobs:
           git commit -m 'buildozer log [skip ci]' || true
           git push --force origin HEAD:build-logs || true
 
+      - name: Publish APK to apk-bin branch
+        if: success()
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@users.noreply.github.com
+          APK_PATH=$(ls bin/*.apk | head -1)
+          cp "$APK_PATH" ski-adventure.apk
+          git add ski-adventure.apk
+          git commit -m 'APK build [skip ci]' || true
+          git push --force origin HEAD:apk-bin || true
+
       - name: Upload APK artifact
         if: success()
         uses: actions/upload-artifact@v4
